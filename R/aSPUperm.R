@@ -1,4 +1,4 @@
-aSPUperm <- function(sam1, sam2, pow = c(1:6, Inf), n.perm = 1000){
+aSPUperm <- function(sam1, sam2, pow = c(1:6, Inf), n.perm = 1000, seeds){
 	n1 <- dim(sam1)[1]
 	n2 <- dim(sam2)[1]
 	p <- dim(sam1)[2]
@@ -10,16 +10,17 @@ aSPUperm <- function(sam1, sam2, pow = c(1:6, Inf), n.perm = 1000){
 		if(pow[j] < Inf){
 			Ts[j] <- sum(diff^pow[j])
 		}else{
-			Ts[j] <- max(diff^2/diag(Sn))
+			diag.Sn <- diag(Sn)
+			diag.Sn[diag.Sn <= 10^(-10)] <- 10^(-10)
+			Ts[j] <- max(diff^2/diag.Sn)
 		}
 	}
 
 	p.spu <- rep(NA, length(pow))
 	Ts.perm <- matrix(NA, length(pow), n.perm)
-	s <- sample(1:10^5, 1)
 
-	set.seed(s)
 	for(b in 1:n.perm){
+		if(!is.null(seeds)) set.seed(seeds[b])
 		perm <- sample(1:(n1 + n2))
 		sam.perm <- sam[perm,]
 		sam1.perm <- sam.perm[1:n1,]
@@ -27,8 +28,14 @@ aSPUperm <- function(sam1, sam2, pow = c(1:6, Inf), n.perm = 1000){
 		Sn.perm <- ((n1 - 1)*cov(sam1.perm) + (n2 - 1)*cov(sam2.perm))/(n1 + n2 - 2)
 		diff.perm <- colMeans(sam1.perm) - colMeans(sam2.perm)
 		for(j in 1:length(pow)){
-			if(pow[j] < Inf){ Ts.perm[j, b] <- sum(diff.perm^pow[j]) }
-			if(pow[j] == Inf){ Ts.perm[j, b] <- max(diff.perm^2/diag(Sn.perm)) }
+			if(pow[j] < Inf){
+				Ts.perm[j, b] <- sum(diff.perm^pow[j])
+			}
+			if(pow[j] == Inf){
+				diag.Sn.perm <- diag(Sn.perm)
+				diag.Sn.perm[diag.Sn.perm <= 10^(-10)] <- 10^(-10)
+				Ts.perm[j, b] <- max(diff.perm^2/diag.Sn.perm)
+			}
 		}
 	}
 

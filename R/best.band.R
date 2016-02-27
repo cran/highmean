@@ -1,4 +1,4 @@
-best.band <- function(sam, n1, n2, bandwidth, cv.fold, norm){
+best.band <- function(sam, bandwidth, cv.fold, norm){
 	p <- dim(sam)[2]
 	n <- dim(sam)[1]
 	fold.size <- round(n/cv.fold)

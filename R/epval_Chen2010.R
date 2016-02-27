@@ -1,36 +1,86 @@
-epval_Chen2010 <- function(sam1, sam2, perm.iter = 1000){
-	n1 <- dim(sam1)[1]
-	n2 <- dim(sam2)[1]
-	tau <- (n1 + n2)/(n1*n2)
-	n <- n1 + n2 - 2
-	p <- dim(sam1)[2]
-	sam <- rbind(sam1, sam2)
-	diff <- colMeans(sam1) - colMeans(sam2)
-	col.sum1 <- colSums(sam1)
-	col.sum2 <- colSums(sam2)
-	rm1 <- sum(col.sum1^2) - sum(diag(sam1 %*% t(sam1)))
-	rm2 <- sum(col.sum2^2) - sum(diag(sam2 %*% t(sam2)))
-	chen2010.stat <- rm1/(n1*(n1 - 1)) + rm2/(n2*(n2 - 1)) - 2*sum(col.sum1*col.sum2)/(n1*n2)
-	chen2010.stat <- as.numeric(chen2010.stat)
-
-	chen2010.stat.perm <- numeric(perm.iter)
-	for(i in 1:perm.iter){
-		perm <- sample(1:(n1 + n2))
-		sam.perm <- sam[perm,]
-		sam1.perm <- sam.perm[1:n1,]
-		sam2.perm <- sam.perm[(n1 + 1):(n1 + n2),]
-		diff.perm <- colMeans(sam1.perm) - colMeans(sam2.perm)
-		col.sum1.perm <- colSums(sam1.perm)
-		col.sum2.perm <- colSums(sam2.perm)
-		rm1.perm <- sum(col.sum1.perm^2) - sum(diag(sam1.perm%*%t(sam1.perm)))
-		rm2.perm <- sum(col.sum2.perm^2) - sum(diag(sam2.perm%*%t(sam2.perm)))
-		chen2010.stat.perm[i] <- rm1.perm/(n1*(n1 - 1)) + rm2.perm/(n2*(n2 - 1)) - 2*sum(col.sum1.perm*col.sum2.perm)/(n1*n2)
-		chen2010.stat.perm[i] <- as.numeric(chen2010.stat.perm[i])
+epval_Chen2010 <- function(sam1, sam2, eq.cov = TRUE, n.iter = 1000, cov1.est, cov2.est, bandwidth1, bandwidth2, cv.fold = 5, norm = "F", seeds){
+	if(missing(seeds)) seeds <- NULL
+	if(length(seeds) != n.iter){
+		seeds <- NULL
+		cat("The length of seeds does not match the specified n.iter.\n")
+		cat("Seeds for each permutation/resampling iteration are assigned randomly.\n")
 	}
-	chen2010.pval <- sum(chen2010.stat.perm >= chen2010.stat)/perm.iter
-	names(chen2010.pval) <- "Chen2010"
-	out <- NULL
-	out$sam.info <- c("n1" = n1, "n2" = n2, "p" = p)
-	out$pval <- chen2010.pval
+	if(eq.cov){
+		out <- epval_Chen2010_samecov(sam1, sam2, n.iter, seeds)
+	}else{
+		sam.cov1 <- cov(sam1)
+		sam.cov2 <- cov(sam2)
+		p <- dim(sam1)[2]
+
+		if(missing(bandwidth1)) bandwidth1 <- seq(from = 0, to = p, by = floor(p/50))
+		if(missing(bandwidth2)) bandwidth2 <- seq(from = 0, to = p, by = floor(p/50))
+		if(any(bandwidth1 < 0)){
+			cat("Negative values specified in bandwidth1 are removed.\n")
+			bandwidth1 <- bandwidth1[bandwidth1 < 0]
+		}
+		if(any(bandwidth2 < 0)){
+			cat("Negative values specified in bandwidth2 are removed.\n")
+			bandwidth2 <- bandwidth2[bandwidth2 < 0]
+		}
+		if(any(bandwidth1 != floor(bandwidth1))){
+			cat("Non-integers specified in bandwidth1 are converted to their integer parts.")
+			bandwidth1 <- floor(bandwidth1)
+		}
+		if(any(bandwidth2 != floor(bandwidth2))){
+			cat("Non-integers specified in bandwidth2 are converted to their integer parts.")
+			bandwidth2 <- floor(bandwidth2)
+		}
+
+		if(missing(cov1.est)){
+			output.opt.bw1 <- TRUE
+			if(length(bandwidth1) > 1){
+				optim.bandwidth1 <- best.band(sam1, bandwidth1, cv.fold, norm)
+			}
+			if(length(bandwidth1) == 1){
+				optim.bandwidth1 <- bandwidth1
+			}
+			if(optim.bandwidth1 > 0){
+				cov1.est <- sam.cov1
+				cov1.est[abs(row(cov1.est) - col(cov1.est)) > optim.bandwidth1] <- 0
+			}
+			if(optim.bandwidth1 == 0){
+				cov1.est <- diag(diag(sam.cov1))
+			}
+			eigen1 <- eigen(cov1.est)
+			eigen1.vectors <- eigen1$vectors
+			eigen1.values <- eigen1$values
+			eigen1.values[eigen1.values <= 0] <- 0.001
+			cov1.est <- eigen1.vectors %*% diag(eigen1.values) %*% t(eigen1.vectors)
+		}else{
+			output.opt.bw1 <- FALSE
+		}
+
+		if(missing(cov2.est)){
+			output.opt.bw2 <- TRUE
+			if(length(bandwidth2) > 1){
+				optim.bandwidth2 <- best.band(sam2, bandwidth2, cv.fold, norm)
+			}
+			if(length(bandwidth2) == 1){
+				optim.bandwidth2 <- bandwidth2
+			}
+			if(optim.bandwidth2 > 0){
+				cov2.est <- sam.cov2
+				cov2.est[abs(row(cov2.est) - col(cov2.est)) > optim.bandwidth2] <- 0
+			}
+			if(optim.bandwidth2 == 0){
+				cov2.est <- diag(diag(sam.cov2))
+			}
+			eigen2 <- eigen(cov2.est)
+			eigen2.vectors <- eigen2$vectors
+			eigen2.values <- eigen2$values
+			eigen2.values[eigen2.values <= 0] <- 0.001
+			cov2.est <- eigen2.vectors %*% diag(eigen2.values) %*% t(eigen2.vectors)
+		}else{
+			output.opt.bw2 <- FALSE
+		}
+
+		out <- epval_Chen2010_diffcov(sam1, sam2, n.iter, sam.cov1, sam.cov2, cov1.est, cov2.est, cv.fold, norm, seeds, optim.bandwidth1, optim.bandwidth2, output.opt.bw1, output.opt.bw2)
+	}
+
 	return(out)
 }

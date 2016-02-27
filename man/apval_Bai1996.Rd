@@ -1,7 +1,7 @@
 \name{apval_Bai1996}
 \alias{apval_Bai1996}
 \title{
-Asymptotic p-value of the Test Proposed by Bai and Saranadasa (1996)
+Asymptotics-Based p-value of the Test Proposed by Bai and Saranadasa (1996)
 }
 \description{
 Calculates p-value of the test for testing equality of two-sample high-dimensional mean vectors proposed by Bai and Saranadasa (1996) based on the asymptotic distribution of the test statistic.
@@ -31,15 +31,21 @@ A list including the following elements:
   \item{sam.info}{
   the basic information about the two groups of samples, including the samples sizes and dimension.
 }
+  \item{cov.assumption}{
+  this output reminds users that the two sample populations have a common covariance matrix.
+}
+  \item{method}{
+  this output reminds users that the p-values are obtained using the asymptotic distributions of test statistics.
+}
   \item{pval}{
-  the asymptotic p-value of the test proposed by Bai and Saranadasa (1996).
+  the p-value of the test proposed by Bai and Saranadasa (1996).
 }
 }
 \references{
 Bai ZD and Saranadasa H (1996). "Effect of high dimension: by an example of a two sample problem." \emph{Statistica Sinica}, 6(2), 311--329.
 }
 \note{
-The asymptotic distribution of the test statistic was derived under normality assumption in Bai and Saranadasa (1996). Also, this function assumes that the two groups of samples have a common covariance matrix.
+The asymptotic distribution of the test statistic was derived under normality assumption in Bai and Saranadasa (1996). Also, this function assumes that the two sample populations have a common covariance matrix.
 }
 \examples{
 library(MASS)
@@ -51,6 +57,6 @@ mu2 <- mu1
 mu2[1:10] <- 0.2
 true.cov <- 0.4^(abs(outer(1:p, 1:p, "-"))) # AR1 covariance
 sam1 <- mvrnorm(n = n1, mu = mu1, Sigma = true.cov)
-sam2 <- mvrnorm(n = n1, mu = mu2, Sigma = true.cov)
+sam2 <- mvrnorm(n = n2, mu = mu2, Sigma = true.cov)
 apval_Bai1996(sam1, sam2)
 }
