@@ -78,17 +78,20 @@ A list including the following elements:
 }
 }
 \references{
-Bickel PJ and Levina E (2008). "Regularized estimation of large covariance matrices." \emph{The Annals of Statistics}, 36(1), 199--227.
+Bickel PJ and Levina E (2008). "Regularized estimation of large covariance matrices." \emph{The Annals of Statistics}, \bold{36}(1), 199--227.
 
-Pan W, Kim J, Zhang Y, Shen X, and Wei P (2014). "A powerful and adaptive association test for rare variants." \emph{Genetics}, 197(4), 1081--1095.
+Pan W, Kim J, Zhang Y, Shen X, and Wei P (2014). "A powerful and adaptive association test for rare variants." \emph{Genetics}, \bold{197}(4), 1081--1095.
 
 Pourahmadi M (2013). \emph{High-Dimensional Covariance Estimation}. John Wiley & Sons, Hoboken, NJ.
 
-Xu G, Lin L, Wei P, and Pan W (2016+). "An adaptive two-sample test for high-dimensional means."
+Xu G, Lin L, Wei P, and Pan W (2016). "An adaptive two-sample test for high-dimensional means." \emph{Biometrika}, \bold{103}(3), 609--624.
 }
 %\author{
 %Lifeng Lin <linl@umn.edu>
 %}
+\seealso{
+\code{\link{apval_aSPU}}, \code{\link{cpval_aSPU}}
+}
 \examples{
 library(MASS)
 set.seed(1234)

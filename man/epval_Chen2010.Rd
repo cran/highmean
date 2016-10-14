@@ -72,11 +72,14 @@ A list including the following elements:
 }
 }
 \references{
-Bickel PJ and Levina E (2008). "Regularized estimation of large covariance matrices." \emph{The Annals of Statistics}, 36(1), 199--227.
+Bickel PJ and Levina E (2008). "Regularized estimation of large covariance matrices." \emph{The Annals of Statistics}, \bold{36}(1), 199--227.
 
-Chen SX and Qin YL (2010). "A two-sample test for high-dimensional data with applications to gene-set testing." \emph{The Annals of Statistics}, 38(2), 808--835.
+Chen SX and Qin YL (2010). "A two-sample test for high-dimensional data with applications to gene-set testing." \emph{The Annals of Statistics}, \bold{38}(2), 808--835.
 
 Pourahmadi M (2013). \emph{High-Dimensional Covariance Estimation}. John Wiley & Sons, Hoboken, NJ.
+}
+\seealso{
+\code{\link{apval_Chen2010}}
 }
 \examples{
 #library(MASS)

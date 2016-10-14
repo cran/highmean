@@ -1,9 +1,12 @@
 epval_aSPU <- function(sam1, sam2, pow = c(1:6, Inf), eq.cov = TRUE, n.iter = 1000, cov1.est, cov2.est, bandwidth1, bandwidth2, cv.fold = 5, norm = "F", seeds){
-	if(missing(seeds)) seeds <- NULL
-	if(length(seeds) != n.iter){
+	if(missing(seeds)){
 		seeds <- NULL
-		cat("The length of seeds does not match the specified n.iter.\n")
-		cat("Seeds for each permutation/resampling iteration are assigned randomly.\n")
+	}else{
+		if(length(seeds) != n.iter){
+			seeds <- NULL
+			cat("The length of seeds does not match the specified n.iter.\n")
+			cat("Seeds for each permutation/resampling iteration are assigned randomly.\n")
+		}
 	}
 	if(eq.cov){
 		out <- epval_aSPU_samecov(sam1, sam2, pow, n.iter, seeds)

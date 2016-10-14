@@ -1,5 +1,5 @@
-export(apval_aSPU, apval_Bai1996, apval_Cai2014, apval_Chen2010, apval_Chen2014, apval_Sri2008, epval_aSPU, epval_Bai1996, epval_Cai2014, epval_Chen2010, epval_Chen2014, epval_Sri2008)
+export(apval_aSPU, apval_Bai1996, apval_Cai2014, apval_Chen2010, apval_Chen2014, apval_Sri2008, cpval_aSPU, epval_aSPU, epval_Bai1996, epval_Cai2014, epval_Chen2010, epval_Chen2014, epval_Sri2008)
 
 import(MASS, mnormt, mvtnorm)
 
-importFrom("stats", "cov", "cov2cor", "dnorm", "pnorm")
+importFrom("stats", "var", "cov", "cov2cor", "dnorm", "pnorm")

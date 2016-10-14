@@ -52,6 +52,9 @@ Chen SX, Li J, and Zhong PS (2014). "Two-Sample Tests for High Dimensional Means
 \note{
 This function does not transform the data with their precision matrix (see Chen et al, 2014). To calculate the p-value of the test statisic with transformation, users can use transformed samples for \code{sam1} and \code{sam2}.
 }
+\seealso{
+\code{\link{epval_Chen2014}}
+}
 \examples{
 library(MASS)
 set.seed(1234)

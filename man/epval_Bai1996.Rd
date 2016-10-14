@@ -44,10 +44,13 @@ A list including the following elements:
 }
 }
 \references{
-Bai ZD and Saranadasa H (1996). "Effect of high dimension: by an example of a two sample problem." \emph{Statistica Sinica}, 6(2), 311--329.
+Bai ZD and Saranadasa H (1996). "Effect of high dimension: by an example of a two sample problem." \emph{Statistica Sinica}, \bold{6}(2), 311--329.
 }
 \note{
 The permutation technique assumes that the distributions of the two sample populations are the same under the null hypothesis.
+}
+\seealso{
+\code{\link{apval_Bai1996}}
 }
 \examples{
 #library(MASS)

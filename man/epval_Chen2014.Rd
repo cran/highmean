@@ -72,7 +72,7 @@ A list including the following elements:
 }
 }
 \references{
-Bickel PJ and Levina E (2008). "Regularized estimation of large covariance matrices." \emph{The Annals of Statistics}, 36(1), 199--227.
+Bickel PJ and Levina E (2008). "Regularized estimation of large covariance matrices." \emph{The Annals of Statistics}, \bold{36}(1), 199--227.
 
 Chen SX, Li J, and Zhong PS (2014). "Two-Sample Tests for High Dimensional Means with Thresholding and Data Transformation." arXiv preprint arXiv:1410.2848.
 
@@ -80,6 +80,9 @@ Pourahmadi M (2013). \emph{High-Dimensional Covariance Estimation}. John Wiley &
 }
 \note{
 This function does not transform the data with their precision matrix (see Chen et al, 2014). To calculate the p-value of the test statisic with transformation, users can input transformed samples to \code{sam1} and \code{sam2}.
+}
+\seealso{
+\code{\link{apval_Chen2014}}
 }
 \examples{
 #library(MASS)

@@ -46,7 +46,10 @@ A list including the following elements:
 }
 }
 \references{
-Chen SX and Qin YL (2010). "A two-sample test for high-dimensional data with applications to gene-set testing." \emph{The Annals of Statistics}, 38(2), 808--835.
+Chen SX and Qin YL (2010). "A two-sample test for high-dimensional data with applications to gene-set testing." \emph{The Annals of Statistics}, \bold{38}(2), 808--835.
+}
+\seealso{
+\code{\link{epval_Chen2010}}
 }
 \examples{
 library(MASS)

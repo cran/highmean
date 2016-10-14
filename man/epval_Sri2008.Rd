@@ -45,10 +45,13 @@ A list including the following elements:
 }
 }
 \references{
-Srivastava MS and Du M (2008). "A test for the mean vector with fewer observations than the dimension." \emph{Journal of Multivariate Analysis}, 99(3), 386--402.
+Srivastava MS and Du M (2008). "A test for the mean vector with fewer observations than the dimension." \emph{Journal of Multivariate Analysis}, \bold{99}(3), 386--402.
 }
 \note{
 The permutation technique assumes that the distributions of the two sample populations are the same under the null hypothesis.
+}
+\seealso{
+\code{\link{apval_Sri2008}}
 }
 \examples{
 #library(MASS)

@@ -42,10 +42,13 @@ A list including the following elements:
 }
 }
 \references{
-Bai ZD and Saranadasa H (1996). "Effect of high dimension: by an example of a two sample problem." \emph{Statistica Sinica}, 6(2), 311--329.
+Bai ZD and Saranadasa H (1996). "Effect of high dimension: by an example of a two sample problem." \emph{Statistica Sinica}, \bold{6}(2), 311--329.
 }
 \note{
 The asymptotic distribution of the test statistic was derived under normality assumption in Bai and Saranadasa (1996). Also, this function assumes that the two sample populations have a common covariance matrix.
+}
+\seealso{
+\code{\link{epval_Bai1996}}
 }
 \examples{
 library(MASS)

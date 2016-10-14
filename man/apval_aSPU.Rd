@@ -4,7 +4,7 @@
 Asymptotics-Based p-values of the SPU and aSPU Tests
 }
 \description{
-Calculates p-values of the sum-of-powers (SPU) and adaptive SPU (aSPU) tests based on the asymptotic distributions of the test statistics (Xu et al 2016+).
+Calculates p-values of the sum-of-powers (SPU) and adaptive SPU (aSPU) tests based on the asymptotic distributions of the test statistics (Xu et al, 2016).
 }
 \usage{
 apval_aSPU(sam1, sam2, pow = c(1:6, Inf), eq.cov = TRUE, cov.est,
@@ -59,7 +59,7 @@ For \eqn{\gamma = \infty},
 \deqn{L (\infty) = \max_{i = 1, \ldots, p} (\bar{X}_1^{(i)} - \bar{X}_2^{(i)})^2/(\sigma_{1,ii}/n_1 + \sigma_{2,ii}/n_2).}
 The adaptive SPU (aSPU) test combines the SPU tests and improve the test power:
 \deqn{T_{aSPU} = \min_{\gamma \in \Gamma} P_{SPU(\gamma)},}
-where \eqn{P_{SPU(\gamma)}} is the p-value of SPU(\eqn{\gamma}) test, and \eqn{\Gamma} is a candidate set of \eqn{\gamma}'s. Note that \eqn{T_{aSPU}} is no longer a genuine p-value. The asymptotic properties of the SPU and aSPU tests are studied in Xu et al (2016+).
+where \eqn{P_{SPU(\gamma)}} is the p-value of SPU(\eqn{\gamma}) test, and \eqn{\Gamma} is a candidate set of \eqn{\gamma}'s. Note that \eqn{T_{aSPU}} is no longer a genuine p-value. The asymptotic properties of the SPU and aSPU tests are studied in Xu et al (2016).
 }
 
 \value{
@@ -105,17 +105,20 @@ A list including the following elements:
 }
 }
 \references{
-Bickel PJ and Levina E (2008). "Regularized estimation of large covariance matrices." \emph{The Annals of Statistics}, 36(1), 199--227.
+Bickel PJ and Levina E (2008). "Regularized estimation of large covariance matrices." \emph{The Annals of Statistics}, \bold{36}(1), 199--227.
 
-Pan W, Kim J, Zhang Y, Shen X, and Wei P (2014). "A powerful and adaptive association test for rare variants." \emph{Genetics}, 197(4), 1081--1095.
+Pan W, Kim J, Zhang Y, Shen X, and Wei P (2014). "A powerful and adaptive association test for rare variants." \emph{Genetics}, \bold{197}(4), 1081--1095.
 
 Pourahmadi M (2013). \emph{High-Dimensional Covariance Estimation}. John Wiley & Sons, Hoboken, NJ.
 
-Xu G, Lin L, Wei P, and Pan W (2016+). "An adaptive two-sample test for high-dimensional means."
+Xu G, Lin L, Wei P, and Pan W (2016). "An adaptive two-sample test for high-dimensional means." \emph{Biometrika}, \bold{103}(3), 609--624.
 }
 %\author{
 %Lifeng Lin <linl@umn.edu>
 %}
+\seealso{
+\code{\link{cpval_aSPU}}, \code{\link{epval_aSPU}}
+}
 \examples{
 library(MASS)
 set.seed(1234)

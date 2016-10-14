@@ -45,10 +45,13 @@ A list including the following elements:
 }
 }
 \references{
-Cai TT, Liu W, and Xia Y (2014). "Two-sample test of high dimensional means under dependence." \emph{Journal of the Royal Statistical Society: Series B (Statistical Methodology)}, 76(2), 349--372.
+Cai TT, Liu W, and Xia Y (2014). "Two-sample test of high dimensional means under dependence." \emph{Journal of the Royal Statistical Society: Series B (Statistical Methodology)}, \bold{76}(2), 349--372.
 }
 \note{
 This function does not transform the data with their precision matrix (see Cai et al, 2014). To calculate the p-value of the test statisic with transformation, users can use transformed samples for \code{sam1} and \code{sam2}.
+}
+\seealso{
+\code{\link{epval_Cai2014}}
 }
 \examples{
 library(MASS)
